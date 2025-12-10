@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyseur de Codes Circulaires</title>
+    <!-- Main styles -->
+    <link rel="stylesheet" href="style_main.css">
+    <!-- Tailwind for all classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vis.js for the graph-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Settings panel  / texte -->
+        <div id="parametres" class="fenetre">
+            <!-- Title-->
+            <h6 class="text-3xl font-bold text-gray-800 mb-6 text-center border-b-2 border-blue-200 pb-3">
+                Circular Codes Analyzer</h6>
+            <div class="buttons-container-user ">
+                <button id="guideBtn"
+                        type="button"
+                        class="text-sm px-2 py-1 margin-top mb-3   hover:bg-gray-100 w-auto inline-block">
+                    Guide / Help
+                </button>
+            </div>
+            <!-- Zone input area-->
+            <div class="code-section "> 
+                <strong for="codeBrutInput">Code to test:</strong>
+                <textarea rows="4" id="codeBrutInput"></textarea>
+                <!-- Upload file .txt -->
+                <div style="margin-top: 20px; ">
+                    <strong for="codeFile">Upload a file (.txt):</strong>
+                   
+                    <input type="file" id="codeFile" accept=".txt" class="hidden">
+                   
+                    <button  type="button" id="fileBtn"class="btn btn-secondary btn-small"> </i> 
+                        Choose File
+                    </button>
+
+                    <span id="fileName" class=" text-sm italic text-gray-600">
+                        No file chosen
+                    </span>
+                </div>
+            </div>
+            <!-- choise of color -->
+            <div>
+                <label for="couleurGraphique">Choose a color for the graph:</label>
+                <input type="color" id="couleurGraphique" value="#4783ad">
+            </div>
+            <!-- principal Bouton: apply the settings and run all your logic -->
+            <button type="button" onclick="appliquerParametres()" class="btn btn-primary btn-small">
+                Apply the Settings
+            </button>
+            <hr>
+            <h3 class="mt-6" >Current Settings:</h3>
+            <div id="affichageParametres"></div>
+        </div>
+        <!-- Graph display panel -->
+        <div id="graphique" class="fenetre">
+       
+            
+             <div id="graph-list" class="flex flex-col gap-8">
+                <!-- The graphs will be injected here by script.js -->
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Your full logic (merged version) -->
+    <script src="script.js"></script>
+
+    <!-- Guide Modal -->
+    <div class="modal-overlay" id="guideModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">User Guide</h2>
+            
+            <div class="guide-section">
+                <h3>Entering a Code</h3>
+                <p>Enter a code as words of the same length (example: <span class="highlight">aac acc atc</span>). You can also load a file with .txt extension containing the code words.</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Code Analysis</h3>
+                <p>The tool checks three main properties:</p>
+                <ul>
+                    <li><span class="highlight">Atomicity</span> - whether the code is atomic</li>
+                    <li><span class="highlight">Circularity</span> - whether the code is circular</li>
+                    <li><span class="highlight">Alphabet</span> - verification of the alphabet used</li>
+                </ul>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Graph Visualization</h3>
+                <p>If the code is uniform, the graph G(X) is constructed using all possible splits of each word.</p>
+                <p>The <span class="highlight">Toggle components of Gᵢ(X)</span> button displays the components G₁(X)…Gₙ₋₁(X).</p>
+                <p>For codes of length 2, the tool does not display components Gᵢ(X), because all splits produce the same structure as G(X). Therefore, the button is automatically hidden for codes of length 2.</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Circular vs Non-Circular Codes</h3>
+                <p>For circular codes, self-loops (cycles) are shown in red.</p>
+                <p>For non-circular codes, the tool computes the longest paths in G(X).</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Path Analysis</h3>
+                <p>Use the dropdown <span class="highlight">Choose a path to color</span> to highlight any of these paths. Click on a path in the list to highlight it in violet.</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Export Function</h3>
+                <p>The <span class="highlight">PNG</span> button allows downloading the displayed graph as an image file for documentation and reporting purposes.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        
+        // Guide button functionality
+        const guideBtn = document.getElementById('guideBtn');
+        const guideModal = document.getElementById('guideModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        guideBtn.addEventListener('click', function() {
+            guideModal.style.display = 'flex';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            guideModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the content
+        guideModal.addEventListener('click', function(e) {
+            if (e.target === guideModal) {
+                guideModal.style.display = 'none';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && guideModal.style.display === 'flex') {
+                guideModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+
+

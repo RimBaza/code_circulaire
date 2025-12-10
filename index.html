@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioInformatique - Circular Code</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style_index.css">
+    <link rel="icon" type="image/png" href="icon.png">
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="info-section">
+            <h1 class="title">BioInformatique</h1>
+            
+            <p class="description">
+                Welcome to the <strong>Circular Code Analysis </strong> Tool, this platform is designed to analyze and verify circular codes in bioinformatics. 
+        
+            </p>
+            
+            <div class="features">
+                <h3>Key Features:</h3>
+                <ul>
+                    <li>Verify atomicity, circularity, and alphabet of genetic codes</li>
+                    <li>Visualize graph structures for uniform codes</li>
+                    <li>Display components G₁(X)…Gₙ₋₁(X)</li>
+                    <li>Compute longest paths for non-circular codes</li>
+                </ul>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="btn btn-secondary" id="guideBtn">
+                    <i class="fas fa-book-open"></i> User Guide
+                </button>
+                <button class="btn btn-primary" id="startBtn">
+                    <i class="fas fa-play"></i> Get Started
+                </button>
+            </div>
+        </div>
+        
+        <div class="image-section">
+            <div class="image-placeholder">
+                <img src="pic1.jpg" alt="Bioinformatics Circular Code Analysis" class="bioinformatics-image">
+            </div>
+        </div>
+   
+    </div>
+    
+    <!-- Guide Modal -->
+    <div class="modal-overlay" id="guideModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">User Guide</h2>
+            
+            <div class="guide-section">
+                <h3>Entering a Code</h3>
+                <p>Enter a code as words of the same length (example: <span class="highlight">aac acc atc</span>). You can also load a file with .txt extension containing the code words.</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Code Analysis</h3>
+                <p>The tool checks three main properties:</p>
+                <ul>
+                    <li><span class="highlight">Atomicity</span> - whether the code is atomic</li>
+                    <li><span class="highlight">Circularity</span> - whether the code is circular</li>
+                    <li><span class="highlight">Alphabet</span> - verification of the alphabet used</li>
+                </ul>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Graph Visualization</h3>
+                <p>If the code is uniform, the graph G(X) is constructed using all possible splits of each word.</p>
+                <p>The <span class="highlight">Toggle components of Gᵢ(X)</span> button displays the components G₁(X)…Gₙ₋₁(X).</p>
+                <p>For codes of length 2, the tool does not display components Gᵢ(X), because all splits produce the same structure as G(X). Therefore, the button is automatically hidden for codes of length 2.</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Circular vs Non-Circular Codes</h3>
+                <p>For circular codes, self-loops (cycles) are shown in red.</p>
+                <p>For non-circular codes, the tool computes the longest paths in G(X).</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Path Analysis</h3>
+                <p>Use the dropdown <span class="highlight">Choose a path to color</span> to highlight any of these paths. Click on a path in the list to highlight it in violet.</p>
+            </div>
+            
+            <div class="guide-section">
+                <h3>Export Function</h3>
+                <p>The <span class="highlight">PNG</span> button allows downloading the displayed graph as an image file for documentation and reporting purposes.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get Started button functionality
+        document.getElementById('startBtn').addEventListener('click', function() {
+            // In a real implementation, this would redirect to your main page
+            // For this demo, we'll simulate the redirect
+            window.location.href = 'main.html';
+            
+            // If the page doesn't exist, show a message
+            setTimeout(function() {
+                alert('In a real implementation, this would redirect to index.htm\n\nFor this demo, we\'re showing this message instead.');
+            }, 100);
+        });
+        
+        // Guide button functionality
+        const guideBtn = document.getElementById('guideBtn');
+        const guideModal = document.getElementById('guideModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        guideBtn.addEventListener('click', function() {
+            guideModal.style.display = 'flex';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            guideModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the content
+        guideModal.addEventListener('click', function(e) {
+            if (e.target === guideModal) {
+                guideModal.style.display = 'none';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && guideModal.style.display === 'flex') {
+                guideModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+aac aat acc atc att cag ctc ctg gaa gac gag gat gcc ggc ggt gta gtc gtt tac ttc
+aag aca acg act agc agg ata atg cca ccg gcg gtg tag tca tcc tcg tct tgc tta ttg
+AC AG AT CG CT TG
+AC ACA CGT CTG GAC GTT TCT
+AT GC AAC GTT GAA TTC AAT ATT ACC CGT GAC GTC CAG CTG GTA TAC ATC GAT GCC GGC CTC GAG
